@@ -84,9 +84,11 @@ Once downloaded, place these two files in the `./laval-objaverse-dataset/laval/s
 
 ```bash
 # Extract Indoor dataset
+mkdir ./laval-objaverse-dataset/laval/src/Indoor
 tar -xvf ./laval-objaverse-dataset/laval/src/IndoorHDRDatasetReexposedNoRedDotsNoInpaintingOct18.tar -C ./laval-objaverse-dataset/laval/src/Indoor
 
 # Extract Outdoor dataset (note: use -xzvf for .tgz files)
+mkdir ./laval-objaverse-dataset/laval/src/Outdoor
 tar -xzvf ./laval-objaverse-dataset/laval/src/outdoorPanosExr.tgz -C ./laval-objaverse-dataset/laval/src/Outdoor
 ```
 
