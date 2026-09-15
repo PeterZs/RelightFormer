@@ -85,11 +85,11 @@ Once downloaded, place these two files in the `./laval-objaverse-dataset/laval/s
 ```bash
 # Extract Indoor dataset
 mkdir ./laval-objaverse-dataset/laval/src/Indoor
-tar -xvf ./laval-objaverse-dataset/laval/src/IndoorHDRDatasetReexposedNoRedDotsNoInpaintingOct18.tar -C ./laval-objaverse-dataset/laval/src/Indoor
+tar -xvf ./laval-objaverse-dataset/laval/src/IndoorHDRDatasetReexposedNoRedDotsNoInpaintingOct18.tar -C ./laval-objaverse-dataset/laval/src/Indoor --strip-components=1
 
 # Extract Outdoor dataset (note: use -xzvf for .tgz files)
 mkdir ./laval-objaverse-dataset/laval/src/Outdoor
-tar -xzvf ./laval-objaverse-dataset/laval/src/outdoorPanosExr.tgz -C ./laval-objaverse-dataset/laval/src/Outdoor
+tar -xzvf ./laval-objaverse-dataset/laval/src/outdoorPanosExr.tgz -C ./laval-objaverse-dataset/laval/src/Outdoor --strip-components=1
 ```
 
 Finally, run the preprocessing script to generate illumination maps compatible with our dataset format:
@@ -119,7 +119,7 @@ pipe = RelightFormerPipeline.from_pretrained(
 )
 ```
 
-You can also run inference and evaluation on the Laval Objaverse Dataset via the command line:
+You can run inference and evaluation on the Laval Objaverse Dataset via the command line:
 
 **Single GPU:**
 ```bash
@@ -131,20 +131,12 @@ python inference.py \
     --batch_size 1 \
     --mixed_precision bf16 \
     --skip_exist \
-    --save_gt
+    --save_gt \
+    --pair_info ./laval-objaverse-dataset/pairs/16_to_16_mapping_pairs.json
 ```
 
-**Multi-GPU (Distributed):**
-```bash
-accelerate launch --num_processes=4 inference.py \
-    --from_pretrained vLAR/RelightFormer \
-    --revision main \
-    --dataset_path ./laval-objaverse-dataset \
-    --output_dir ./output/my_eval \
-    --batch_size 1 \
-    --mixed_precision bf16 \
-    --skip_exist
-```
+> 💡 **Tip:** To evaluate on a specific **N-view relighting track**, update the `--pair_info` argument to `./laval-objaverse-dataset/pairs/{N}_to_{N}_mapping_pairs.json`, where `N` can be `1`, `16`, or `32`. *(Default: `16`)*
+
 *(Note: Use `--revision post` in the commands above to evaluate the post-trained model).*
 
 ## 🏋️ Training

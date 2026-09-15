@@ -217,7 +217,7 @@ class LavalObjaverseDataset(Dataset):
             for view_name in view_name_list:
                 view_name_clean = view_name.split('.')[0]
                 lighting_name_clean = lighting_name.replace("/", "_").split('.')[0]
-                image_file_name = f"{view_name_clean}&{lighting_name_clean}"
+                image_file_name = f"{view_name_clean}-{lighting_name_clean}"
                 
                 image, mask = self.read_masked_image(rendered_path, image_file_name)
                 
