@@ -121,7 +121,6 @@ pipe = RelightFormerPipeline.from_pretrained(
 
 You can run inference and evaluation on the Laval Objaverse Dataset via the command line:
 
-**Single GPU:**
 ```bash
 python inference.py \
     --from_pretrained vLAR/RelightFormer \
@@ -148,7 +147,7 @@ python download_wan2.1.py
 ```
 
 ### 2. Training RelightFormer
-Once you have downloaded the full training split of the LOD dataset into `./laval-objaverse-dataset`, you can launch the training on 4× H200 GPUs:
+Once you have downloaded the full training split of the LOD dataset into `./laval-objaverse-dataset`, you can launch the training on 4× NVIDIA H200 GPUs:
 ```bash
 nohup accelerate launch --main_process_port 25523 \
     --config_file configs/accelerate/4_16fp.yaml \
